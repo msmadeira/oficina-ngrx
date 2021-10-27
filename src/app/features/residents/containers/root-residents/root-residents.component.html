@@ -1,3 +1,5 @@
+<app-resident-create-modal [(open)]="isModalOpen"></app-resident-create-modal>
+
 <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
   <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
     <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -5,7 +7,7 @@
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-base text-blueGray-700">Residents</h3>
         </div>
-        <button class="btn">Create</button>
+        <button class="btn" (click)="isModalOpen = true">Create</button>
       </div>
     </div>
 
@@ -37,7 +39,7 @@
             {{resident.name}}
           </td>
           <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            <button class="btn">Edit</button>
+            <button class="btn" (click)="isModalOpen = true">Edit</button>
             <button class="btn">Delete</button>
           </td>
         </tr>

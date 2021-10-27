@@ -14,6 +14,7 @@ import {Resident} from "../../models/resident.model";
 export class RootResidentsComponent implements OnInit, OnDestroy {
 
   residents: Resident[] | undefined;
+  isModalOpen: boolean = false;
 
   private componentDestroyed$ = new Subject();
 

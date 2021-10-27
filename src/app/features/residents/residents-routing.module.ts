@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {RootResidentsComponent} from "./components/root-residents/root-residents.component";
+import {RootResidentsComponent} from "./containers/root-residents/root-residents.component";
 
 const routes: Routes = [{
   path: '',
