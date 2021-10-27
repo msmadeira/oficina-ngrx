@@ -1,36 +1,40 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {select, Store} from "@ngrx/store";
 
 import {ResidentsService} from "../../services/residents.service";
 import {Resident} from "../../models/resident.model";
+import * as fromResidentsActions from '../../state/residents.actions';
+import * as fromResidentsSelectors from '../../state/residents.selectors';
 
 @Component({
   selector: 'app-root-residents',
   templateUrl: './root-residents.component.html',
   styleUrls: ['./root-residents.component.scss']
 })
-export class RootResidentsComponent implements OnInit, OnDestroy {
+export class RootResidentsComponent implements OnInit {
+
+  loading$: Observable<boolean> | undefined;
+  residents$: Observable<Resident[]> | undefined;
 
   residents: Resident[] | undefined;
   isModalOpen: boolean = false;
 
-  private componentDestroyed$ = new Subject();
-
-  constructor(private residentsService: ResidentsService) {
+  constructor(private residentsService: ResidentsService,
+              private store: Store) {
   }
 
   ngOnInit() {
-    this.residentsService.load()
-      .pipe(
-        takeUntil(this.componentDestroyed$),
-      )
-      .subscribe((residents: Resident[]) => this.residents = residents)
+    this.loading$ = this.store.pipe(select(fromResidentsSelectors.selectLoading));
+    this.residents$ = this.store.pipe(select(fromResidentsSelectors.selectEntities));
   }
 
-  ngOnDestroy() {
-    this.componentDestroyed$.next();
-    this.componentDestroyed$.unsubscribe();
+  onLoad() {
+    this.store.dispatch(fromResidentsActions.load());
+  }
+
+  onDelete(id: string) {
+    this.store.dispatch(fromResidentsActions.deleteResident({ id }));
   }
 }

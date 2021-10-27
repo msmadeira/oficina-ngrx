@@ -8,10 +8,15 @@
           <h3 class="font-semibold text-base text-blueGray-700">Residents</h3>
         </div>
         <button class="btn" (click)="isModalOpen = true">Create</button>
+
+        <button class="btn" (click)="onLoad()">testa ai broder</button>
       </div>
     </div>
 
     <div class="block w-full overflow-x-auto">
+      <div *ngIf="loading$ | async">
+        tá carregando man
+      </div>
       <table class="items-center bg-transparent w-full border-collapse ">
         <thead>
         <tr>
@@ -31,7 +36,7 @@
         </thead>
 
         <tbody>
-        <tr *ngFor="let resident of residents">
+        <tr *ngFor="let resident of (residents$ | async)">
           <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
             {{resident.id}}
           </th>
@@ -40,7 +45,7 @@
           </td>
           <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             <button class="btn" (click)="isModalOpen = true">Edit</button>
-            <button class="btn">Delete</button>
+            <button class="btn" (click)="onDelete(resident.id)">Delete</button>
           </td>
         </tr>
         </tbody>
