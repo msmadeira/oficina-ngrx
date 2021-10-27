@@ -1,0 +1,8 @@
+.btn {
+  @apply p-1 px-2 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100
+  text-lg rounded-lg border-indigo-300 text-xs;
+
+  &:first-child {
+    @apply mr-1;
+  }
+}
